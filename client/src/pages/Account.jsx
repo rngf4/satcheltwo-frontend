@@ -22,6 +22,7 @@ const Account = () => {
 			Logout
 		</button>
 	</div>);
+
 };
 
 export default Account;
