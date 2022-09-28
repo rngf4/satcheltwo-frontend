@@ -39,7 +39,7 @@ function NavigationItem({item}) {
 		>
 			{({isActive}) => (
 				<div
-					className={classNames(isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium')}>
+					className={classNames(isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium' )}>
 					{item.name}
 				</div>
 			)}
@@ -50,7 +50,7 @@ function NavigationItem({item}) {
 }
 
 function NavBar() {
-	const {auth, logOut} = useAuth()
+	const {auth} = useAuth()
 	return (<Disclosure as="nav" className="bg-gray-800">
 		{({open}) => (<>
 			<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -90,8 +90,9 @@ function NavBar() {
 							(<Menu as="div" className="relative ml-3">
 								<div>
 									<Menu.Button
-										className="h-8 w-8 rounded-full flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 bg-[url('https://lh3.googleusercontent.com/a-/AFdZucpfDF3pC3QkIHx9TRuZZPfFbNYfSx-4XvZq7khEnA=s96-c')]">
+										className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
 										<span className="sr-only">Open user menu</span>
+										<img className="h-8 w-8 rounded-full" src={auth.currentUser.photoURL} alt="image"/>
 									</Menu.Button>
 								</div>
 								<Transition
