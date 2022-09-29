@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/AbstractPoo/SatchelTwo-Frontend#readme",
   "dependencies": {
+    "@headlessui/react": "^1.7.2",
+    "@heroicons/react": "^2.0.11",
     "axios": "^0.27.2",
     "firebase": "^9.10.0",
     "react": "^18.2.0",
