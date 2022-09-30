@@ -61,7 +61,10 @@ function Navbar() {
     </div>);
 };
 
-const navigation = [{ name: "Home", href: '/', private: true }, { name: "Account", href: '/account', private: true }]
+const navigation = [
+    { name: "Home", href: '/', private: true },
+    { name: "Subscriptions", href: "/subscriptions", private: true }
+]
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')

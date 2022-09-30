@@ -7,6 +7,7 @@ import Account from './pages/Account';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignOut from "./pages/SignOut"
+import Subscriptions from "./pages/Subscriptions"
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                             </Protected>
                         }
                     />
+                    <Route path="/subscriptions" element={<Protected><Subscriptions /></Protected>} />
                 </Routes>
             </AuthContextProvider>
         </div>
