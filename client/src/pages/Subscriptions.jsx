@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react"
-import { useGetClasses } from "../services/api"
+import { useGetAllClasses } from "../services/api"
 
 function Subscriptions() {
-    return (<>These are subscriptions buddy</>)
+    const classes = useGetAllClasses()
+    return (<>
+        {classes ? classes.map(cl => {
+            return <div key=cl._id>{cl.name}</div>
+        }) : <div>loading classes</div>}
+    </>)
 }
 
 export default Subscriptions
