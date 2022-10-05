@@ -4,7 +4,8 @@ import {
     GoogleAuthProvider,
     signInWithRedirect,
     signOut,
-    onAuthStateChanged
+    onAuthStateChanged,
+    getAuth,
 
 } from 'firebase/auth';
 import { auth } from '../firebase';
@@ -14,7 +15,6 @@ const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState({});
-    const userData = useGetUser()
 
     const googleSignIn = () => {
         const provider = new GoogleAuthProvider();
@@ -37,7 +37,7 @@ export const AuthContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ auth, googleSignIn, logOut, user, userData }}>
+        <AuthContext.Provider value={{ auth, googleSignIn, logOut, user }}>
             {children}
         </AuthContext.Provider>
     );
