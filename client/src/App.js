@@ -8,7 +8,7 @@ import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignOut from "./pages/SignOut"
 import Subscriptions from "./pages/Subscriptions"
-import Teacher from "./Pages/Teacher"
+import Teacher from "./pages/Teacher"
 
 function App() {
     return (
