@@ -20,10 +20,12 @@ function LevelProtected({ children, routeLevel }) {
     if (!user) {
       setView(<Navigate to="/signin" />);
     } else {
-      if (userData && userData.level >= routeLevel) {
-        setView(children);
-      } else {
-        setView(<>You are not authorised to be here buddy</>);
+      if (userData) {
+        if (userData.level >= routeLevel) {
+          setView(children);
+        } else {
+          setView(<>You are not authorised to be here buddy</>);
+        }
       }
     }
   }, [userData]);
