@@ -60,4 +60,36 @@ function useGetAllClasses() {
   return classData;
 }
 
-export { useGetUser, useGetClasses, useGetAllClasses };
+function useGetTeacherClasses() {
+  const { auth } = useAuth();
+  const [classData, setClassData] = useState();
+  const { errorNotification } = useNotification();
+  useEffect(() => {
+    (async function () {
+      if (auth.currentUser) {
+        const data = (await Client.get(auth.currentUser, "/class/getall")).data;
+        if (data.error) {
+          errorNotification(data.error);
+        } else {
+          setClassData(data);
+        }
+      }
+    })();
+  }, [auth.currentUser]);
+  return classData;
+}
+
+function useCreateClass() {
+  return function (classInformation) {
+    const { name } = classInformation;
+    return name;
+  };
+}
+
+export {
+  useCreateClass,
+  useGetUser,
+  useGetClasses,
+  useGetAllClasses,
+  useGetTeacherClasses,
+};
