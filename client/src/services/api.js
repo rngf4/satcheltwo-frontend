@@ -80,8 +80,20 @@ function useGetTeacherClasses() {
 }
 
 function useCreateClass() {
-  return function (classInformation) {
+  const { auth } = useAuth();
+  const { errorNotification } = useNotification();
+  return async function (classInformation) {
     const { name } = classInformation;
+    if (auth.currentUser) {
+      const data = (
+        await Client.post(auth.currentUser, "/class/create", { name: name })
+      ).data;
+      if (data.error) {
+        errorNotification(data.error);
+      } else {
+        return data;
+      }
+    }
     return name;
   };
 }
