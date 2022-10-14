@@ -1,28 +1,47 @@
 import { useGetTeacherClasses, useCreateClass } from "../services/api";
-import { useEffect, useRef } from "react";
-import { Route } from "react-router-dom";
+import { useRef } from "react";
 
 function Teacher() {
-  const createdClasses = useGetTeacherClasses();
   const createClass = useCreateClass();
   const classInputRef = useRef(null);
 
   function domCreateClass() {
-    //grab the information from the boxes or literally just use form tags
     createClass({ name: classInputRef.current.value });
   }
 
   return (
     <>
-      <div className="flex flex-column">
-        <div className="flex flex-row pd-4">
-          <h3>Your classes can be seen below</h3>
-          <input ref={classInputRef} type="text" />
-          <button onClick={domCreateClass}>create +</button>
+      <div className="m-4">
+        <div className="flex flex-col">
+          <div className="flex flex-row gap-4">
+            <h3>Your classes can be seen below</h3>
+            <input ref={classInputRef} type="text" />
+            <button
+              onClick={domCreateClass}
+              className="p-1 bg-gray-800 rounded text-slate-200"
+            >
+              create +
+            </button>
+          </div>
+          <CreatedClasses />
         </div>
-        <div>this would be the list of classes</div>
       </div>
     </>
+  );
+}
+
+function CreatedClasses() {
+  const createdClasses = useGetTeacherClasses();
+  return (
+    <div className="flex flex-col">
+      {createdClasses ? (
+        createdClasses.map((cl) => {
+          return <div>{cl.name}</div>;
+        })
+      ) : (
+        <>loading</>
+      )}
+    </div>
   );
 }
 

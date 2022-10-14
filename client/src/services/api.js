@@ -67,7 +67,9 @@ function useGetTeacherClasses() {
   useEffect(() => {
     (async function () {
       if (auth.currentUser) {
-        const data = (await Client.get(auth.currentUser, "/class/getall")).data;
+        const data = (
+          await Client.get(auth.currentUser, "/class/getallcreator")
+        ).data;
         if (data.error) {
           errorNotification(data.error);
         } else {
