@@ -29,7 +29,8 @@ function useGetClasses() {
   useEffect(() => {
     (async function () {
       if (auth.currentUser) {
-        const data = (await Client.get(auth.currentUser, "/class/get")).data;
+        const data = (await Client.get(auth.currentUser, "/class/getalluser"))
+          .data;
         if (data.error) {
           errorNotification(data.error);
         } else {
@@ -81,6 +82,25 @@ function useGetTeacherClasses() {
   return classData;
 }
 
+function useJoinClass() {
+  const { auth } = useAuth();
+  const { errorNotification } = useNotification();
+  return async function (classInformation) {
+    const { _id } = classInformation;
+    if (auth.currentUser) {
+      const data = (
+        await Client.post(auth.currentUser, "/class/join", { _id: _id })
+      ).data;
+      if (data.error) {
+        errorNotification(data.error);
+      } else {
+        return data;
+      }
+    }
+    return _id;
+  };
+}
+
 function useCreateClass() {
   const { auth } = useAuth();
   const { errorNotification } = useNotification();
@@ -100,10 +120,36 @@ function useCreateClass() {
   };
 }
 
+function useCreateHomework() {
+  const { auth } = useAuth();
+  const { errorNotification } = useNotification();
+  return async function (homeworkInformation) {
+    const { title, description, set, due, classId } = homeworkInformation;
+    if (auth.currentUser) {
+      const data = (
+        await Client.post(auth.currentUser, "/homework/create", {
+          title: title,
+          description: description,
+          set: set,
+          due: due,
+          classId: classId,
+        })
+      ).data;
+      if (data.error) {
+        errorNotification(data.error);
+      } else {
+        return data;
+      }
+    }
+  };
+}
+
 export {
   useCreateClass,
   useGetUser,
   useGetClasses,
   useGetAllClasses,
   useGetTeacherClasses,
+  useJoinClass,
+  useCreateHomework,
 };

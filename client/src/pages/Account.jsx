@@ -1,11 +1,11 @@
 import React from "react";
 import { useAuth } from "../context/AuthContext";
-import { useGetAllClasses, useGetUser } from "../services/api";
+import { useGetClasses, useGetUser } from "../services/api";
 
 const Account = () => {
   const { logOut, user } = useAuth();
   const userData = useGetUser();
-  const classes = useGetAllClasses(); //make usegetclasses
+  const classes = useGetClasses();
   console.log(classes);
 
   return (

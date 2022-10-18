@@ -85,6 +85,7 @@ function Navbar() {
 const navigation = [
   { name: "Home", href: "/", private: true },
   { name: "Account", href: "/account", private: true },
+  { name: "Subscriptions", href: "/subscriptions", private: true },
   { name: "Teacher", href: "/teacher", private: true, level: 1 },
 ];
 

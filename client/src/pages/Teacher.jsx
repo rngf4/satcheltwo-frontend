@@ -1,5 +1,11 @@
-import { useGetTeacherClasses, useCreateClass } from "../services/api";
+import {
+  useGetTeacherClasses,
+  useCreateClass,
+  useCreateHomework,
+} from "../services/api";
 import { useRef } from "react";
+import PageContainer from "../components/PageContainer";
+import { Button } from "../components/Library";
 
 function Teacher() {
   const createClass = useCreateClass();
@@ -8,24 +14,22 @@ function Teacher() {
   function domCreateClass() {
     createClass({ name: classInputRef.current.value });
   }
+  //https://mui.com/material-ui/react-modal/
 
   return (
     <>
-      <div className="m-4">
-        <div className="flex flex-col">
-          <div className="flex flex-row gap-4">
-            <h3>Your classes can be seen below</h3>
-            <input ref={classInputRef} type="text" />
-            <button
-              onClick={domCreateClass}
-              className="p-1 bg-gray-800 rounded text-slate-200"
-            >
-              create +
-            </button>
+      <PageContainer>
+        <div className="m-4">
+          <div className="flex flex-col">
+            <div className="flex flex-row gap-4 justify-center">
+              <h3>Your classes can be seen below</h3>
+              <input ref={classInputRef} type="text" />
+              <Button callback={domCreateClass}>create class</Button>
+            </div>
+            <CreatedClasses />
           </div>
-          <CreatedClasses />
         </div>
-      </div>
+      </PageContainer>
     </>
   );
 }
@@ -35,12 +39,32 @@ function CreatedClasses() {
   return (
     <div className="flex flex-col">
       {createdClasses ? (
-        createdClasses.map((cl) => {
-          return <div>{cl.name}</div>;
-        })
+        createdClasses.map((cl) => <ClassElement data={cl} />)
       ) : (
         <>loading</>
       )}
+    </div>
+  );
+}
+
+function ClassElement({ data }) {
+  const createHomework = useCreateHomework();
+  function domCreateHomework() {
+    const finalDate = new Date();
+    finalDate.setHours(finalDate.getHours() + 12);
+    createHomework({
+      title: "nice",
+      description: "this is te description",
+      set: new Date(),
+      due: finalDate,
+      classId: data._id,
+    });
+  }
+
+  return (
+    <div className="flex flex-row justify-center">
+      <div>{data.name}</div>
+      <Button callback={domCreateHomework}>create homework</Button>
     </div>
   );
 }

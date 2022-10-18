@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignOut from "./pages/SignOut";
 import Teacher from "./pages/Teacher";
+import Subscriptions from "./pages/Subscriptions";
 
 function App() {
   return (
@@ -39,6 +40,14 @@ function App() {
               <LevelProtected routeLevel={1}>
                 <Teacher />
               </LevelProtected>
+            }
+          />
+          <Route
+            path="/subscriptions"
+            element={
+              <Protected>
+                <Subscriptions />
+              </Protected>
             }
           />
         </Routes>
