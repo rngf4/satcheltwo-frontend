@@ -1,12 +1,12 @@
 import React from "react";
 import { useAuth } from "../context/AuthContext";
-import { useGetClasses, useGetUser } from "../services/api";
+import { useUser } from "../context/UserContext";
+import { useGetClasses } from "../services/api";
 
 const Account = () => {
   const { logOut, user } = useAuth();
-  const userData = useGetUser();
+  const { userData } = useUser();
   const classes = useGetClasses();
-  console.log(classes);
 
   return (
     <div className="w-[300px] m-auto">

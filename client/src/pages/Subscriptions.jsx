@@ -14,7 +14,7 @@ function ClassElement({ data }) {
   }
 
   return (
-    <div key={data._id} className="flex flex-row">
+    <div className="flex flex-row">
       <h3>{data.name}</h3>
       <Button callback={joinClassButton}>join class</Button>
     </div>
@@ -27,7 +27,7 @@ function Subscriptions() {
     <>
       <PageContainer>
         {classes ? (
-          classes.map((cl) => <ClassElement data={cl} />)
+          classes.map((cl) => <ClassElement data={cl} key={cl._id} />)
         ) : (
           <>loading</>
         )}

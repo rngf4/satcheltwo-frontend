@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useGetUser } from "../services/api";
+import { useUser } from "../context/UserContext";
 
 function Protected({ children }) {
   const { user } = useAuth();
@@ -13,14 +13,14 @@ function Protected({ children }) {
 
 function LevelProtected({ children, routeLevel }) {
   const { user } = useAuth();
-  const userData = useGetUser();
+  const { userData } = useUser();
   const [view, setView] = useState(<>loading</>);
 
   useEffect(() => {
     if (!user) {
       setView(<Navigate to="/signin" />);
     } else {
-      if (userData) {
+      if (userData?.level) {
         if (userData.level >= routeLevel) {
           setView(children);
         } else {
@@ -28,7 +28,7 @@ function LevelProtected({ children, routeLevel }) {
         }
       }
     }
-  }, [userData]);
+  }, [userData?.level]);
 
   return view;
 }

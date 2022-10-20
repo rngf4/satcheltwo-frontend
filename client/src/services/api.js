@@ -61,6 +61,26 @@ function useGetAllClasses() {
   return classData;
 }
 
+function useGetHomeworks() {
+  const { auth } = useAuth();
+  const [classData, setClassData] = useState();
+  const { errorNotification } = useNotification();
+  useEffect(() => {
+    (async function () {
+      if (auth.currentUser) {
+        const data = (await Client.get(auth.currentUser, "/homework/getall"))
+          .data;
+        if (data.error) {
+          errorNotification(data.error);
+        } else {
+          setClassData(data);
+        }
+      }
+    })();
+  }, [auth.currentUser]);
+  return classData;
+}
+
 function useGetTeacherClasses() {
   const { auth } = useAuth();
   const [classData, setClassData] = useState();
@@ -152,4 +172,5 @@ export {
   useGetTeacherClasses,
   useJoinClass,
   useCreateHomework,
+  useGetHomeworks,
 };

@@ -5,6 +5,7 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useGetUser } from "../services/api";
+import { useUser } from "../context/UserContext";
 
 function SignIn() {
   return (
@@ -84,7 +85,7 @@ function Navbar() {
 
 const navigation = [
   { name: "Home", href: "/", private: true },
-  { name: "Account", href: "/account", private: true },
+  { name: "Homeworks", href: "/homeworks", private: true },
   { name: "Subscriptions", href: "/subscriptions", private: true },
   { name: "Teacher", href: "/teacher", private: true, level: 1 },
 ];
@@ -95,10 +96,7 @@ function classNames(...classes) {
 
 function NavigationItem({ item }) {
   const { auth } = useAuth();
-  const userData = useGetUser();
-  console.log(item.level, userData);
-  if (item.level && item.level <= userData?.level) {
-  }
+  const { userData } = useUser();
   return (
     <>
       {(auth.currentUser && item.private && !item.level) ||
@@ -160,7 +158,7 @@ function NavBar() {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <NavigationItem item={item} />
+                      <NavigationItem item={item} key={item.name} />
                     ))}
                   </div>
                 </div>
